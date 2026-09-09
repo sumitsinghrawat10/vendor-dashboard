@@ -10,9 +10,9 @@ export default function App() {
       <Route
         path="/kpi/:kpiKey"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <KpiDetailPage />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
     </Routes>
