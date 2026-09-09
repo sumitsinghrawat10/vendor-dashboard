@@ -29,9 +29,9 @@ export const msalConfig = {
     authority:
       "https://login.microsoftonline.com/15b9be72-32a2-43aa-bfa9-111b62ef53ea",
 
-    redirectUri: "http://localhost:5175/auth",
+    redirectUri: "https://vendor-dashboards.netlify.app/auth",
 
-    postLogoutRedirectUri: "http://localhost:5175/auth",
+    postLogoutRedirectUri: "https://vendor-dashboards.netlify.app/auth",
 
     navigateToLoginRequestUrl: true,
   },
