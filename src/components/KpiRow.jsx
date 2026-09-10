@@ -30,7 +30,7 @@ export default function KpiRow({ quarter, vendor, onNavigate }) {
         return {
           ...kpi,
           value: `${summary.revenuePct}%`,
-          sub: `$${summary.totalRevenue.toLocaleString()} of $${summary.totalTarget.toLocaleString()} target`,
+          // sub: `$${summary.totalRevenue.toLocaleString()} of $${summary.totalTarget.toLocaleString()} target`,
         };
       case "pipeline":
         return {
