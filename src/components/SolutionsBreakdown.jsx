@@ -31,24 +31,51 @@ export default function SolutionsBreakdown({
 
   return (
     <Paper
-      component="section"
-      elevation={0}
-      variant="outlined"
-      sx={{
-        p: { xs: 2, sm: 2.5 },
-        height: "100%",
-        minWidth: 0,
-        borderRadius: "18px",
-        borderColor: "#DDDDE5",
-        bgcolor: "background.paper",
-        transition:
-          "transform 180ms ease, box-shadow 180ms ease",
+     component="section"
+  elevation={0}
+  variant="outlined"
+  sx={{
+    p: { xs: 2, sm: 2.5 },
+    minWidth: 0,
 
-        "&:hover": {
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
-        },
-      }}
+    minHeight: 300,
+    maxHeight: 500,
+    overflowY: "auto",
+    overflowX: "hidden",
+
+    borderRadius: "18px",
+    borderColor: "#DDDDE5",
+    bgcolor: "background.paper",
+    transition:
+      "transform 180ms ease, box-shadow 180ms ease",
+
+    // Firefox scrollbar
+    scrollbarWidth: "thin",
+    scrollbarColor: "#C5C5CF transparent",
+
+    // Chrome and Edge scrollbar
+    "&::-webkit-scrollbar": {
+      width: "6px",
+    },
+
+    "&::-webkit-scrollbar-track": {
+      background: "transparent",
+    },
+
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#C5C5CF",
+      borderRadius: "10px",
+    },
+
+    "&::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: "#9E9EAA",
+    },
+
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
+    },
+  }}
     >
       {/* Header */}
       <Box

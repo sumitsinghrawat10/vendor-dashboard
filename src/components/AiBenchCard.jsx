@@ -39,7 +39,7 @@ const SAMPLE_DATA = {
   },
 
   bench: {
-    totalHeadcount: 140,
+    totalHeadcount: 12,
     aiReadyResources: 53,
     allocatedResources: 31,
     planningStatus: "In progress",
@@ -208,26 +208,52 @@ function DashboardCard({
   background,
 }) {
   return (
-    <Paper
-      component="section"
-      elevation={0}
-      variant="outlined"
-      sx={{
-        p: { xs: 2, sm: 2.5 },
-        minWidth: 0,
-        height: "100%",
-        borderRadius: "18px",
-        borderColor,
-        bgcolor: background,
-        transition:
-          "transform 180ms ease, box-shadow 180ms ease",
+   <Paper
+  component="section"
+  elevation={0}
+  variant="outlined"
+  sx={{
+    p: { xs: 2, sm: 2.5 },
+    minWidth: 0,
 
-        "&:hover": {
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
-        },
-      }}
-    >
+    minHeight: 300,
+    maxHeight: 500,
+    overflowY: "auto",
+    overflowX: "hidden",
+
+    borderRadius: "18px",
+    borderColor,
+    bgcolor: background,
+    transition:
+      "transform 180ms ease, box-shadow 180ms ease",
+
+    // Scrollbar styling
+    scrollbarWidth: "thin",
+    scrollbarColor: `${borderColor} transparent`,
+
+    "&::-webkit-scrollbar": {
+      width: "6px",
+    },
+
+    "&::-webkit-scrollbar-track": {
+      background: "transparent",
+    },
+
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: borderColor,
+      borderRadius: "10px",
+    },
+
+    "&::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: "#C89A32",
+    },
+
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
+    },
+  }}
+>
       <SectionHeader
         title={title}
         subtitle={subtitle}
@@ -265,6 +291,54 @@ export default function AiBenchCard({
       )
     : 0;
 
+const technicalResources = [
+  {
+    key: "aiEngineer",
+    label: "AI Engineer",
+    fallback: 3,
+  },
+  {
+    key: "backendPythonDeveloper",
+    label: "Backend Python Developer",
+    fallback: 1,
+  },
+  {
+    key: "dataEngineer",
+    label: "Data Engineer",
+    fallback: 1,
+  },
+  {
+    key: "devOpsEngineer",
+    label: "DevOps Engineer",
+    fallback: 1,
+  },
+  {
+    key: "frontEndDeveloper",
+    label: "Front End Developer",
+    fallback: 2,
+  },
+  {
+    key: "fullStackAiSystemsEngineer",
+    label: "Full Stack AI Systems Engineer",
+    fallback: 1,
+  },
+  {
+    key: "fullStackDeveloper",
+    label: "Full Stack Developer",
+    fallback: 1,
+  },
+  {
+    key: "juniorDeveloper",
+    label: "Junior Developer",
+    fallback: 1,
+  },
+  {
+    key: "seniorDataEngineer",
+    label: "Senior Data Engineer",
+    fallback: 1,
+  },
+];
+
   return (
     <Box
       sx={{
@@ -277,6 +351,69 @@ export default function AiBenchCard({
         alignItems: "stretch",
       }}
     >
+      {/* Technical Headcount */}
+      <DashboardCard
+        title="Technical Headcount"
+        subtitle="Overview of available technical resources"
+        headerColor="#805B0B"
+        accentColor="#FAB219"
+        borderColor="#EAD9B5"
+        background="#FFFDF8"
+      >
+      <Stack>
+  <MetricRow label="Total technical resources">
+    <Typography
+      sx={{
+        ...styles.value,
+        fontSize: 22,
+        color: "#805B0B",
+      }}
+    >
+      {bench.totalHeadcount ?? 77}
+    </Typography>
+  </MetricRow>
+
+  {technicalResources.map((resource) => (
+    <MetricRow
+      key={resource.key}
+      label={resource.label}
+      value={bench[resource.key] ?? resource.fallback}
+    />
+  ))}
+
+  {/* <MetricRow
+    label="Allocated resources"
+    value={bench.allocatedResources ?? 0}
+  />
+
+  <MetricRow
+    label="Available resources"
+    value={availableResources}
+  />
+
+  <ProgressMetric
+    label="Resource allocation"
+    value={allocationPercentage}
+    color="#D99700"
+    trackColor="#F9EDCF"
+  /> */}
+
+  <MetricRow label="Resource status">
+    <Chip
+      label={bench.planningStatus ?? "Not available"}
+      size="small"
+      sx={{
+        bgcolor: "#FFF1CC",
+        color: "#805B0B",
+        fontWeight: 700,
+      }}
+    />
+  </MetricRow>
+</Stack>
+      </DashboardCard>
+
+
+
       {/* AI Adoption */}
       <DashboardCard
         title="AI Adoption"
@@ -357,63 +494,7 @@ export default function AiBenchCard({
         </Stack>
       </DashboardCard>
 
-      {/* AI Bench */}
-      <DashboardCard
-        title="AI Bench"
-        subtitle="Resource availability and deployment planning"
-        headerColor="#805B0B"
-        accentColor="#FAB219"
-        borderColor="#EAD9B5"
-        background="#FFFDF8"
-      >
-        <Stack>
-          <MetricRow label="Bench headcount">
-            <Typography
-              sx={{
-                ...styles.value,
-                fontSize: 22,
-                color: "#805B0B",
-              }}
-            >
-              {bench.totalHeadcount ?? 0}
-            </Typography>
-          </MetricRow>
-
-          <MetricRow
-            label="AI-ready resources"
-            value={bench.aiReadyResources ?? 0}
-          />
-
-          <MetricRow
-            label="Resources allocated"
-            value={bench.allocatedResources ?? 0}
-          />
-
-          <MetricRow
-            label="Resources available"
-            value={availableResources}
-          />
-
-          <ProgressMetric
-            label="Resource allocation"
-            value={allocationPercentage}
-            color="#D99700"
-            trackColor="#F9EDCF"
-          />
-
-          <MetricRow label="Bench planning">
-            <Chip
-              label={bench.planningStatus ?? "Not available"}
-              size="small"
-              sx={{
-                bgcolor: "#FFF1CC",
-                color: "#805B0B",
-                fontWeight: 700,
-              }}
-            />
-          </MetricRow>
-        </Stack>
-      </DashboardCard>
+      
     </Box>
   );
 }

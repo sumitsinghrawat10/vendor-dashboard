@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,11 +17,34 @@ import VendorDetail from "./VendorDetail.jsx";
 
 const QUARTERS = ["Q1", "Q2", "Q3", "Q4"];
 
+const VENDORS = [
+  "All Vendors",
+  "Amazon",
+  "Microsoft",
+  "LinkedIn",
+  "Google",
+  "T-Mobile",
+  "Zebra Technologies",
+];
+
+const selectStyles = {
+  minWidth: 120,
+  height: 40,
+  borderRadius: "10px",
+  bgcolor: "background.paper",
+  fontWeight: 700,
+
+  "& .MuiSelect-select": {
+    py: 1,
+  },
+};
+
 export default function Dashboard() {
   const [view, setView] = useState("public");
   const [filter, setFilter] = useState("Actual");
-  const [selectedQuarter, setSelectedQuarter] =
-    useState("Q1");
+  const [selectedQuarter, setSelectedQuarter] = useState("Q1");
+  const [selectedVendor, setSelectedVendor] =
+    useState("All Vendors");
 
   const navigate = useNavigate();
 
@@ -31,6 +52,7 @@ export default function Dashboard() {
     navigate(`/kpi/${kpiKey}`, {
       state: {
         quarter: selectedQuarter,
+        vendor: selectedVendor,
       },
     });
   };
@@ -44,7 +66,6 @@ export default function Dashboard() {
         minHeight: "100vh",
       }}
     >
-      {/* Dashboard title and quarter filter */}
       <Box
         component="header"
         sx={{
@@ -59,9 +80,8 @@ export default function Dashboard() {
         <Breadcrumbs>
           <Typography
             component="h1"
-      
             sx={{
-              color:"#2F80C9",
+              color: "#2F80C9",
               fontSize: {
                 xs: "1.25rem",
                 sm: "1.5rem",
@@ -73,55 +93,99 @@ export default function Dashboard() {
           </Typography>
         </Breadcrumbs>
 
+        {/* Quarter and vendor filters */}
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1,
+            flexWrap: "wrap",
+            gap: 2,
           }}
         >
-          <Typography
-            component="label"
-            htmlFor="quarter-select"
-      
+          {/* Quarter filter */}
+          <Box
             sx={{
-              color:"#2F80C9",
-              fontSize: 15,
-              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
             }}
           >
-            Quarter
-          </Typography>
-
-          <FormControl size="small">
-            <Select
-              id="quarter-select"
-              value={selectedQuarter}
-              onChange={(event) =>
-                setSelectedQuarter(event.target.value)
-              }
-              inputProps={{
-                "aria-label": "Select quarter",
-              }}
+            <Typography
+              component="label"
+              htmlFor="quarter-select"
               sx={{
-                minWidth: 100,
-                height: 40,
-                borderRadius: "10px",
-                bgcolor: "background.paper",
-                fontWeight: 700,
-
-                "& .MuiSelect-select": {
-                  py: 1,
-                },
+                color: "#2F80C9",
+                fontSize: 15,
+                fontWeight: 600,
               }}
             >
-              {QUARTERS.map((quarter) => (
-                <MenuItem key={quarter} value={quarter}>
-                  {quarter}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              Quarter
+            </Typography>
+
+            <FormControl size="small">
+              <Select
+                id="quarter-select"
+                value={selectedQuarter}
+                onChange={(event) =>
+                  setSelectedQuarter(event.target.value)
+                }
+                inputProps={{
+                  "aria-label": "Select quarter",
+                }}
+                sx={selectStyles}
+              >
+                {QUARTERS.map((quarter) => (
+                  <MenuItem key={quarter} value={quarter}>
+                    {quarter}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
+          {/* Vendor filter */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Typography
+              component="label"
+              htmlFor="vendor-select"
+              sx={{
+                color: "#2F80C9",
+                fontSize: 15,
+                fontWeight: 600,
+              }}
+            >
+              Vendor
+            </Typography>
+
+            <FormControl size="small">
+              <Select
+                id="vendor-select"
+                value={selectedVendor}
+                onChange={(event) =>
+                  setSelectedVendor(event.target.value)
+                }
+                inputProps={{
+                  "aria-label": "Select vendor",
+                }}
+                sx={{
+                  ...selectStyles,
+                  minWidth: 170,
+                }}
+              >
+                {VENDORS.map((vendor) => (
+                  <MenuItem key={vendor} value={vendor}>
+                    {vendor}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
         </Box>
       </Box>
 
@@ -136,6 +200,7 @@ export default function Dashboard() {
         <>
           <KpiRow
             quarter={selectedQuarter}
+            vendor={selectedVendor}
             onNavigate={handleKpiNavigate}
           />
 
@@ -150,15 +215,22 @@ export default function Dashboard() {
               mb: 1.75,
             }}
           >
-            <AiBenchCard quarter={selectedQuarter} />
+            <AiBenchCard
+              quarter={selectedQuarter}
+              vendor={selectedVendor}
+            />
 
             <SolutionsBreakdown
               quarter={selectedQuarter}
+              vendor={selectedVendor}
             />
           </Box>
         </>
       ) : (
-        <VendorDetail quarter={selectedQuarter} />
+        <VendorDetail
+          quarter={selectedQuarter}
+          vendor={selectedVendor}
+        />
       )}
     </Box>
   );

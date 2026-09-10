@@ -22,6 +22,8 @@
 //   scopes: ["User.Read"],
 // };
 
+
+
 export const msalConfig = {
   auth: {
     clientId: "e88d0495-24b9-422b-b325-ff4cdc386287",

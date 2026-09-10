@@ -18,30 +18,30 @@ export const KPIS = [
     color: "#3F3A8A",
     bg: "#E9E7FA",
   },
-  {
-    key: "g2m",
-    label: "Gross Margin",
-    value: "34.6%",
-    sub: "Overall weighted margin",
-    change: "+2.4% vs previous quarter",
-    color: "#854F0B",
-    bg: "#FAEEDA",
-    status: "Good",
-    dots: [
-      {
-        label: "Good",
-        color: "#16803C",
-      },
-      {
-        label: "Warning",
-        color: "#E89A00",
-      },
-      {
-        label: "Critical",
-        color: "#C93C3C",
-      },
-    ],
-  },
+  // {
+  //   key: "g2m",
+  //   label: "Gross Margin",
+  //   value: "34.6%",
+  //   sub: "Overall weighted margin",
+  //   change: "+2.4% vs previous quarter",
+  //   color: "#854F0B",
+  //   bg: "#FAEEDA",
+  //   status: "Good",
+  //   dots: [
+  //     {
+  //       label: "Good",
+  //       color: "#16803C",
+  //     },
+  //     {
+  //       label: "Warning",
+  //       color: "#E89A00",
+  //     },
+  //     {
+  //       label: "Critical",
+  //       color: "#C93C3C",
+  //     },
+  //   ],
+  // },
   {
     key: "headCount",
     label: "Head Count",
@@ -53,8 +53,8 @@ export const KPIS = [
   },
   {
     key: "csat",
-    label: "NPS / CSAT",
-    value: "48 / 87%",
+    label: "CSAT/NPS",
+    value: "4.5 / 87%",
     sub: "Overall customer satisfaction",
     change: "1,260 customer responses",
     color: "#8B2E4F",
