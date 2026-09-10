@@ -2,8 +2,8 @@
 export const KPIS = [
   {
     key: "revenue",
-    label: "Total Revenue",
-    value: "$3.42M",
+      label: "Total Revenue Achieved (FY27) ",
+    value: "30%",
     sub: "Across all selected vendors",
     change: "+12.5% vs previous quarter",
     color: "#08634F",
