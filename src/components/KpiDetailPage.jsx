@@ -45,19 +45,19 @@ export default function KpiDetailPage() {
   const BreakdownComponent =
     KPI_COMPONENTS[kpiKey];
 
-  // const userName =
-  //   account?.name ||
-  //   account?.username ||
-  //   "Signed-in user";
+  const userName =
+    account?.name ||
+    account?.username ||
+    "Signed-in user";
 
   const userEmail = account?.username || "";
 
-  // const initials = userName
-  //   .split(" ")
-  //   .filter(Boolean)
-  //   .slice(0, 2)
-  //   .map((word) => word[0]?.toUpperCase())
-  //   .join("");
+  const initials = userName
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase())
+    .join("");
 
   const handleKpiChange = (_, selectedKpiKey) => {
     if (selectedKpiKey !== kpiKey) {
@@ -65,31 +65,17 @@ export default function KpiDetailPage() {
     }
   };
 
-  const storedEmail =
-  sessionStorage.getItem("vendorDashboardEmail") || "";
+  const handleLogout = async () => {
+    try {
+      await instance.logoutRedirect({
+        account,
+        postLogoutRedirectUri: `${window.location.origin}`,
+      });
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
-const userName = storedEmail
-  ? storedEmail
-      .split("@")[0]
-      .replace(/[._-]+/g, " ")
-      .replace(/\b\w/g, (character) => character.toUpperCase())
-  : "Signed-in user";
-
-const initials = userName
-  .split(" ")
-  .filter(Boolean)
-  .slice(0, 2)
-  .map((word) => word[0]?.toUpperCase())
-  .join("");
-
-const handleLogout = () => {
-  sessionStorage.removeItem("vendorDashboardEmail");
-  sessionStorage.removeItem("selectedKpiKey");
-
-  navigate("/", {
-    replace: true,
-  });
-};
   if (!kpi) {
     return (
       <Box
@@ -233,7 +219,7 @@ const handleLogout = () => {
           </Stack>
 
           {/* User information */}
-          {/* {account && (
+          {account && (
             <Stack
               direction="row"
               alignItems="center"
@@ -341,122 +327,7 @@ const handleLogout = () => {
                 </Box>
               </Button>
             </Stack>
-          )} */}
-          {storedEmail && (
-  <Stack
-    direction="row"
-    alignItems="center"
-    justifyContent="flex-end"
-    spacing={{ xs: 1, sm: 1.5 }}
-    sx={{
-      ml: "auto",
-      minWidth: 0,
-    }}
-  >
-    <Avatar
-      sx={{
-        width: 38,
-        height: 38,
-        flexShrink: 0,
-        bgcolor: "#E6F1FB",
-        color: "#0C447C",
-        fontSize: 14,
-        fontWeight: 700,
-      }}
-    >
-      {initials || "U"}
-    </Avatar>
-
-    <Box
-      sx={{
-        display: {
-          xs: "none",
-          sm: "block",
-        },
-        minWidth: 0,
-        textAlign: "right",
-      }}
-    >
-      <Typography
-        sx={{
-          maxWidth: 240,
-          fontSize: 13,
-          lineHeight: 1.3,
-          fontWeight: 700,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {userName}
-      </Typography>
-
-      <Typography
-        color="text.secondary"
-        title={storedEmail}
-        sx={{
-          maxWidth: 240,
-          mt: 0.25,
-          fontSize: 11,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {storedEmail}
-      </Typography>
-    </Box>
-
-    <Chip
-      label="Signed in"
-      size="small"
-      sx={{
-        display: {
-          xs: "none",
-          lg: "flex",
-        },
-        bgcolor: "#E4F4EA",
-        color: "#176B3A",
-        fontWeight: 700,
-      }}
-    />
-
-    <Button
-      variant="outlined"
-      color="error"
-      size="small"
-      startIcon={<Logout />}
-      onClick={handleLogout}
-      sx={{
-        minHeight: 36,
-        flexShrink: 0,
-        px: { xs: 1.25, sm: 2 },
-        textTransform: "none",
-        borderRadius: 2,
-        fontWeight: 600,
-
-        "& .MuiButton-startIcon": {
-          mr: {
-            xs: 0,
-            sm: 1,
-          },
-        },
-      }}
-    >
-      <Box
-        component="span"
-        sx={{
-          display: {
-            xs: "none",
-            sm: "inline",
-          },
-        }}
-      >
-        Logout
-      </Box>
-    </Button>
-  </Stack>
-)}
+          )}
         </Box>
       </Paper>
 
