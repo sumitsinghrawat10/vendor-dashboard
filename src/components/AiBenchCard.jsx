@@ -341,15 +341,21 @@ const technicalResources = [
 
   return (
     <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          lg: "repeat(2, minmax(0, 1fr))",
-        },
-        gap: 2,
-        alignItems: "stretch",
-      }}
+     sx={{
+      display: {
+        xs: "grid",
+        lg: "contents",
+      },
+      gridTemplateColumns: {
+        xs: "1fr",
+      },
+      gap: 2,
+
+      "& > *": {
+        minWidth: 0,
+        height: "100%",
+      },
+    }}
     >
       {/* Technical Headcount */}
       <DashboardCard

@@ -405,7 +405,7 @@ export default function HeadCountBreakdown() {
         </ToggleButtonGroup>
 
         <FormControl size="small" sx={{ width: { xs: "100%", sm: 280 } }}>
-          <InputLabel id="vendor-filter-label">Vendors</InputLabel>
+          <InputLabel id="vendor-filter-label"  shrink>Vendors</InputLabel>
           <Select
             labelId="vendor-filter-label"
             multiple

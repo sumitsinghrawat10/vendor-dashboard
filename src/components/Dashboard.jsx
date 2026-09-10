@@ -203,8 +203,35 @@ export default function Dashboard() {
             vendor={selectedVendor}
             onNavigate={handleKpiNavigate}
           />
-
           <Box
+  sx={{
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",
+      lg: "repeat(3, minmax(0, 1fr))",
+    },
+    alignItems: "stretch",
+    gap: 2,
+    mb: 1.75,
+
+    "& > *": {
+      minWidth: 0,
+      height: "100%",
+    },
+  }}
+>
+  <AiBenchCard
+    quarter={selectedQuarter}
+    vendor={selectedVendor}
+  />
+
+  <SolutionsBreakdown
+    quarter={selectedQuarter}
+    vendor={selectedVendor}
+  />
+</Box>
+
+          {/* <Box
             sx={{
               display: "grid",
               gridTemplateColumns: {
@@ -224,7 +251,7 @@ export default function Dashboard() {
               quarter={selectedQuarter}
               vendor={selectedVendor}
             />
-          </Box>
+          </Box> */}
         </>
       ) : (
         <VendorDetail
